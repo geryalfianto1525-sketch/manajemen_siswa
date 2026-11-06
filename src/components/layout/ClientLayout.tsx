@@ -15,10 +15,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     ];
 
     // Path tanpa layout
-    const noLayoutPaths = {
-        "/auth/login",
-        "/auth/register"
-    };
+    const noLayoutPaths = [
+    "/auth/login",
+    "/auth/register"
+    ];
     
     if (noLayoutPaths.includes(pathname)) {
         return {children};
