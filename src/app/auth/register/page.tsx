@@ -1,8 +1,8 @@
 'use client'
 
-import {useRouter} from "next/navigation"
-import {useState} from 'react'
-import { Eye, EyeOff, User, Mail, Lock, ArrowLeft, Check, Key } from "lucide-react";
+import { useRouter } from "next/navigation"
+import { useState } from 'react'
+import { Eye, EyeOff, User, Mail, Lock, ArrowLeft } from "lucide-react";
 
 export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -40,147 +40,162 @@ export default function RegisterPage() {
     };
 
     const getPasswordStrength = (password: string) => {
-        if (password.length >=12) return {text: "Strong", color: "text-green-600"};
-        if (password.length >= 8) return {text: "Medium", color: "text-yellow-600"};
-        if (password.length >= 6) return {text: "Weak", color: "text-red-600"};
-        return {text: "", color: ""};
+        if (password.length >= 12) return { text: "Strong", color: "text-green-600" };
+        if (password.length >= 8) return { text: "Medium", color: "text-yellow-600" };
+        if (password.length >= 6) return { text: "Weak", color: "text-red-600" };
+        return { text: "", color: "" };
     };
 
     const passwordStrength = getPasswordStrength(formData.password)
     const isFormValid = acceptedTerms && formData.password && (formData.password === formData.confirmPassword)
-    
+
     return (
-        <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 via-white to-blue-100 flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
-                <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-blue-100 p-8 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/10 rounded-3xl" />
-                    <div className="relative z-10" >
-                        <a href="/auth/login" className="flex items-center gap-2 text-gray-600 hover:text-blue-800 mb-6">
+        // 1. Background utama: Gradasi halus yang selaras dengan web
+        <div className="w-full min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/50 to-blue-100/50 flex items-center justify-center p-4 relative overflow-hidden">
+            
+            {/* Efek Pendaran (Glow) di background agar lebih modern */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div className="w-full max-w-md relative z-10">
+                {/* 2. Card: Dibuat lebih transparan (glass) dan bayangan biru tipis */}
+                <div className="bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-2xl shadow-blue-900/10 border border-white/50 p-8 sm:p-10 relative overflow-hidden">
+                    
+                    <div className="relative z-10">
+                        {/* Link Back to Login */}
+                        <a href="/auth/login" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors mb-8">
                             <ArrowLeft className="w-4 h-4" />
                             Back to Login
                         </a>
-                        <div className="text-center mb-6">
-                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+
+                        {/* Header Icon & Teks */}
+                        <div className="text-center mb-8">
+                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-blue-500/30">
                                 <User className="w-8 h-8 text-white" />
                             </div>
-                            <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
-                            <p className="text-gray-600">Join us today! It takes only a few steps.</p>
+                            <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Create Account</h1>
+                            <p className="text-slate-500">Join us today! It takes only a few steps.</p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                        
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700" htmlFor="name">Name</label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    placeholder="Your full name"
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
-                                    required
-                                />
-                            </div>
-                         </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    placeholder="Your email address"
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
-                                    required
-                                />
-                            </div>
-                         </div>
-
-                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700" htmlFor="password">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                                <input
-                                    type={showPassword ? "text" : "password"} 
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    placeholder="Your Password"
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500"
-                                >
-                                    {showPassword ? <EyeOff className="w-5 h-5"/> : <Eye className="w-5 h-5"/>}
-                                </button>
-                            </div>
-                            {formData.password && (
-                                <div className={`text-sm font-medium mt-1 ${passwordStrength.color}`}>
-                                    {passwordStrength.text}
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            
+                            {/* Input Name */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-semibold text-slate-700" htmlFor="name">Name</label>
+                                <div className="relative group">
+                                    <User className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        placeholder="Your full name"
+                                        className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 placeholder:text-slate-400"
+                                        required
+                                    />
                                 </div>
-                            )}
-                        </div>
+                            </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700" htmlFor="confirmPassword">Confirm Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            {/* Input Email */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-semibold text-slate-700" htmlFor="email">Email</label>
+                                <div className="relative group">
+                                    <Mail className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        placeholder="Your email address"
+                                        className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 placeholder:text-slate-400"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Input Password */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-semibold text-slate-700" htmlFor="password">Password</label>
+                                <div className="relative group">
+                                    <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        placeholder="Your Password"
+                                        className="w-full pl-11 pr-12 py-3 border border-slate-200 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 placeholder:text-slate-400"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors p-1"
+                                    >
+                                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </button>
+                                </div>
+                                {formData.password && (
+                                    <div className={`text-xs font-bold mt-1.5 ${passwordStrength.color}`}>
+                                        {passwordStrength.text}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Input Confirm Password */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-semibold text-slate-700" htmlFor="confirmPassword">Confirm Password</label>
+                                <div className="relative group">
+                                    <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                                    <input
+                                        type={showConfirmPassword ? "text" : "password"} // Tambahan logika showConfirmPassword dari state kamu
+                                        name="confirmPassword"
+                                        value={formData.confirmPassword}
+                                        onChange={handleInputChange}
+                                        placeholder="Confirm password"
+                                        className="w-full pl-11 pr-12 py-3 border border-slate-200 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 placeholder:text-slate-400"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors p-1"
+                                    >
+                                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Checkbox */}
+                            <div className="flex items-center gap-3 pt-1">
                                 <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleInputChange}
-                                    placeholder="Confirm password"
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
+                                    type="checkbox"
+                                    id="terms"
+                                    checked={acceptedTerms}
+                                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                                    className="w-5 h-5 rounded-md border-slate-300 text-blue-600 focus:ring-blue-500/50 cursor-pointer"
                                     required
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500"
-                                >
-                                    {showConfirmPassword ? <EyeOff className="w-5 h-5"/> : <Eye className="w-5 h-5"/>}
-                                </button>
+                                <label htmlFor="terms" className="text-sm text-slate-600 cursor-pointer select-none">
+                                    I accept the <span className="text-blue-600 font-medium">terms and conditions</span>
+                                </label>
                             </div>
-                        </div>
 
-                        <div className="flex items-center gap-2">
-                            <input
-                                type="checkbox"
-                                id="terms"
-                                checked={acceptedTerms}
-                                onChange={(e) => setAcceptedTerms(e.target.checked)}
-                                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                required
-                            />
-                            <label htmlFor="terms" className="text-sm text-gray-600">
-                                I accept the terms and conditions
-                            </label>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={!isFormValid}
-                            className={`w-full py-3 rounded-xl font-semibold text-white transition-all ${
-                                isFormValid 
-                                ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg' 
-                                : 'bg-gray-300 cursor-not-allowed'
-                            }`}
-                        >
-                            Create Account
-                        </button>
-
+                            {/* Tombol Submit */}
+                            <button
+                                type="submit"
+                                disabled={!isFormValid}
+                                className={`w-full py-3.5 rounded-xl font-bold text-white transition-all duration-300 mt-2 ${
+                                    isFormValid
+                                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg shadow-blue-600/30 hover:-translate-y-0.5'
+                                        : 'bg-slate-300 cursor-not-allowed text-slate-500'
+                                }`}
+                            >
+                                Create Account
+                            </button>
                         </form>
                     </div>
                 </div>

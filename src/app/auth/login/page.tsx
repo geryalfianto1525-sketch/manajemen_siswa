@@ -20,36 +20,40 @@ export default function LoginPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         console.log("Login submitted:", formData);
-        
-        // Langsung pindah ke dashboard tanpa alert
         router.push("/dashboard");
     };
 
     const isFormValid = formData.email && formData.password;
 
     return (
-        <div className="w-full min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 via-white to-blue-100 flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
-                <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-blue-100 p-8 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-600/10 rounded-3xl" />
+        <div className="w-full min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/50 to-blue-100/50 flex items-center justify-center p-4 relative overflow-hidden">
+            
+            {/* Pendaran background */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div className="w-full max-w-md relative z-10">
+                <div className="bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-2xl shadow-blue-900/10 border border-white/50 p-8 sm:p-10 relative overflow-hidden">
+                    
                     <div className="relative z-10">
                         
+                        {/* 1. IKON BESAR: Diberi gradasi, sedikit transparan, dan efek glow */}
                         <div className="text-center mb-8">
-                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
-                                <LogIn className="w-8 h-8 text-white" />
+                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-400/90 to-blue-600/90 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-blue-500/40 border border-white/20">
+                                <LogIn className="w-8 h-8 text-white drop-shadow-md" />
                             </div>
-                            <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-                            <p className="text-gray-600">Please enter your details to sign in.</p>
+                            <h1 className="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Welcome Back</h1>
+                            <p className="text-slate-500">Please enter your details to sign in.</p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-5">
                             
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-                                <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            {/* Input Email */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-semibold text-slate-700" htmlFor="email">Email</label>
+                                <div className="relative group">
+                                    <Mail className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                                     <input
                                         type="email"
                                         id="email"
@@ -57,21 +61,23 @@ export default function LoginPage() {
                                         value={formData.email}
                                         onChange={handleInputChange}
                                         placeholder="Your email address"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
+                                        // 2. INPUT: Diberi gradasi sangat tipis dari biru ke putih, dan border biru transparan
+                                        className="w-full pl-11 pr-4 py-3 border border-blue-100 rounded-xl bg-gradient-to-r from-blue-50/50 to-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all text-slate-900 placeholder:text-slate-400 shadow-sm shadow-blue-500/5"
                                         required
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
+                            {/* Input Password */}
+                            <div className="space-y-1.5">
                                 <div className="flex items-center justify-between">
-                                    <label className="text-sm font-medium text-gray-700" htmlFor="password">Password</label>
-                                    <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800">
+                                    <label className="text-sm font-semibold text-slate-700" htmlFor="password">Password</label>
+                                    <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">
                                         Forgot password?
                                     </a>
                                 </div>
-                                <div className="relative">
-                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                <div className="relative group">
+                                    <Lock className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         id="password"
@@ -79,26 +85,28 @@ export default function LoginPage() {
                                         value={formData.password}
                                         onChange={handleInputChange}
                                         placeholder="Your Password"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white/70 focus:outline-none focus:border-blue-500"
+                                        // 2. INPUT: Sama seperti email, diberi gradasi tipis
+                                        className="w-full pl-11 pr-12 py-3 border border-blue-100 rounded-xl bg-gradient-to-r from-blue-50/50 to-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-all text-slate-900 placeholder:text-slate-400 shadow-sm shadow-blue-500/5"
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500"
+                                        className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors p-1"
                                     >
                                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
                                 </div>
                             </div>
 
+                            {/* Tombol Submit */}
                             <button
                                 type="submit"
                                 disabled={!isFormValid}
-                                className={`w-full py-3 rounded-xl font-semibold text-white transition-all ${
+                                className={`w-full py-3.5 rounded-xl font-bold text-white transition-all duration-300 mt-2 ${
                                     isFormValid
-                                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg'
-                                        : 'bg-gray-300 cursor-not-allowed'
+                                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg shadow-blue-500/30 hover:-translate-y-0.5'
+                                        : 'bg-slate-300 cursor-not-allowed text-slate-500'
                                 }`}
                             >
                                 Sign In
@@ -106,10 +114,11 @@ export default function LoginPage() {
 
                         </form>
 
-                        <div className="mt-6 text-center">
-                            <p className="text-sm text-gray-600">
+                        {/* Footer Link ke Register */}
+                        <div className="mt-8 text-center pt-6 border-t border-slate-200/60">
+                            <p className="text-sm text-slate-600">
                                 Don't have an account?{' '}
-                                <a href="/auth/register" className="font-semibold text-blue-600 hover:text-blue-800">
+                                <a href="/auth/register" className="font-semibold text-blue-600 hover:text-blue-800 transition-colors">
                                     Create an account
                                 </a>
                             </p>
