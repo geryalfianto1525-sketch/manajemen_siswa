@@ -28,7 +28,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
     }
     
     return(
-        <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md shadow-sm">
             <div className="flex h-16 items-center justify-between px-6 w-full">
                 <div className="flex items-center space-x-4">
                     <Button 
@@ -54,7 +54,7 @@ export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56" align="end" forceMount> 
+                        <DropdownMenuContent className="w-56 mt-2 bg-white border-slate-200 shadow-x1 rounded-x1" align="end" forceMount> 
                             <DropdownMenuLabel className="font-normal">
                                 <div className="flex flex-col space-y-1">
                                     <p className="text-sm font-medium leading-none">
